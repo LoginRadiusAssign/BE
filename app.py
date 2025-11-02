@@ -12,7 +12,16 @@ from flask_limiter.util import get_remote_address
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "http://localhost:3000",  # Local development
+            "https://your-app.vercel.app",  # Your Vercel URL
+            "https://your-app-*.vercel.app"  # Preview deployments
+        ]
+    }
+})
 
 limiter = Limiter(
     get_remote_address,
@@ -186,4 +195,5 @@ def health():
     return jsonify({'status': 'healthy'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.getenv('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)

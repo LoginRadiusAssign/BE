@@ -2,7 +2,7 @@
 CREATE DATABASE login_db;
 
 -- Connect to the database
-\c login_db;
+\c login_db_8whv;
 
 -- Users table
 CREATE TABLE users (
