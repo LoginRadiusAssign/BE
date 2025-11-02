@@ -13,15 +13,8 @@ load_dotenv()
 
 app = Flask(__name__)
 
-CORS(app, resources={
-    r"/api/*": {
-        "origins": [
-            "http://localhost:3000",  # Local development
-            "https://your-app.vercel.app",  # Your Vercel URL
-            "https://your-app-*.vercel.app"  # Preview deployments
-        ]
-    }
-})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 
 limiter = Limiter(
     get_remote_address,
