@@ -135,8 +135,6 @@ def verify_user(email, password):
 
     hashed_password = hash_password(password)
     
-    print(hashed_password,'---> ')
-
     cur.execute("""
         SELECT * FROM users
         WHERE email = %s AND password_hash = %s
@@ -157,7 +155,7 @@ def ratelimit_error(e):
 
 # ---------------- Routes ----------------
 @app.route('/api/login', methods=['POST'])
-@limiter.limit("5 per minute", key_func=get_remote_address)
+@limiter.limit("100 per minute", key_func=get_remote_address)
 def login():
     data = request.get_json()
     email = data.get('email')
