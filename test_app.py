@@ -169,9 +169,11 @@ class TestLoginSecurity(unittest.TestCase):
         mock_cursor.fetchone.side_effect = [
             {'attempt_count': 0},  # IP check
             {'attempt_count': 2, 'last_attempt': datetime.now()},  # User suspension check
-            {'attempt_count': 3, 'last_attempt': datetime.now()}   # After recording
+            None,  # verify_user result (not used, but fetchone() might be called)
+            {'attempt_count': 3, 'last_attempt': datetime.now()},  # after record_failed_attempt
+            {'attempt_count': 3, 'last_attempt': datetime.now()}   # second user_suspended check
         ]
-        
+                
         response = self.app.post('/api/login',
                                 json={'email': 'test@example.com', 'password': 'wrongpass'},
                                 headers={'X-Forwarded-For': '1.2.3.4'})
