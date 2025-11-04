@@ -26,8 +26,8 @@ CREATE INDEX idx_failed_attempts_ip ON failed_login_attempts(ip_address, attempt
 
 -- Insert demo users (passwords: alice=password123, bob=secure456)
 INSERT INTO users (email, password_hash) VALUES
-    ('alice@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'),
-    ('bob@example.com', '6cf615d5bcaac778352a8f1f3360d23f02f34ec182e259897fd6ce485d7870d4');
+    ('alice@example.com', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f'),
+    ('bob@example.com', '80e9d0efe2d4f822c2ca5539dc8065b0cac985998e10929324221d8223d97db7');
 
 -- Optional: Create a cleanup function to remove old failed attempts
 CREATE OR REPLACE FUNCTION cleanup_old_attempts() RETURNS void AS $$
